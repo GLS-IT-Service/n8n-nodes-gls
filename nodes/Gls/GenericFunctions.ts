@@ -40,14 +40,16 @@ export async function psmApiRequest(
 	   }
 
 	   try {
+		   const url = `https://api.gls-group.net${endpoint}?n8n=true`;
 		   const requestOptions = {
 			   method,
-			   url: `https://api.gls-group.net${endpoint}`,
+			   url,
 			   qs,
 			   body,
 			   json: true,
 			   headers,
 		   };
+
 		   return await this.helpers.httpRequest(requestOptions);
 	   } catch (error) {
 		   throw new NodeApiError(
