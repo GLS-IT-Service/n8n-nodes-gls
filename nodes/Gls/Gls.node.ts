@@ -17,7 +17,7 @@ export class Gls implements INodeType {
 		group: ['transform'],
 		version: 1,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
-		description: 'Returns the nearest GLS Points when given latitude, longitude, countryCode (A2) and limit.',
+		description: 'Returns the nearest GLS Points when given latitude, longitude and limit.',
 		defaults: {
 			name: 'PSM',
 		},
@@ -128,55 +128,48 @@ export class Gls implements INodeType {
 		const resource = this.getNodeParameter('resource', 0) as string;
 		const operation = this.getNodeParameter('operation', 0) as string;
 
-		try {
-			if (resource === 'psm') {
-				if (operation === 'getByGeoCoordinates') {
-					// For all items
-					for (let i = 0; i < items.length; i++) {
-						try {
-							// Get parameters
-							const longitude = this.getNodeParameter('longitude', 0) as string;
-							const latitude = this.getNodeParameter('latitude', 0) as string;
-							const limit = this.getNodeParameter('limit', i) as number;
+		if (resource === 'psm') {
+			if (operation === 'getByGeoCoordinates') {
+				// For all items
+				for (let i = 0; i < items.length; i++) {
+					try {
+						// Get parameters
+						const longitude = this.getNodeParameter('longitude', 0) as string;
+						const latitude = this.getNodeParameter('latitude', 0) as string;
+						const limit = this.getNodeParameter('limit', i) as number;
 
-							// Get data from the PSM API
-							const responseData = await getGLSPointsByGeoCoordinates.call(
-								this,
-								longitude,
-								latitude,
-								limit,
-							);
+						// Get data from the PSM API
+						const responseData = await getGLSPointsByGeoCoordinates.call(
+							this,
+							longitude,
+							latitude,
+							limit,
+						);
 
-							// Create an item with the response data
-							item = {
-								json: responseData,
+						// Create an item with the response data
+						item = {
+							json: responseData,
+							pairedItem: { item: i },
+						};
+
+						// Add the item to the returned data
+						returnData.push(item);
+					} catch (error) {
+					if (this.continueOnFail()) {
+							returnData.push({
+								json: {
+									error: error instanceof Error ? error.message : String(error),
+								},
 								pairedItem: { item: i },
-							};
-
-							// Add the item to the returned data
-							returnData.push(item);
-						} catch (error) {
-                        if (this.continueOnFail()) {
-								returnData.push({
-									json: {
-										error: error instanceof Error ? error.message : String(error),
-									},
-									pairedItem: { item: i },
-								});
-								continue;
-							}
-							throw error;
+							});
+							continue;
 						}
+						throw error;
 					}
 				}
 			}
-        } catch (error) {
-            if (this.continueOnFail()) {
-                returnData.push({ json: { error: error instanceof Error ? error.message : String(error) } });
-            } else {
-                throw error;
-            }
-        }
+		}
+
 
 		return [returnData];
 	}

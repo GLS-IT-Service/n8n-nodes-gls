@@ -43,6 +43,7 @@ For developers who prefer direct installation or want to integrate n8n into an e
 ```bash
 npm install n8n -g
 npm install -g pnpm@latest-10
+npx only-allow pnpm
 ```
 
 ### Clone the Repository
@@ -89,7 +90,7 @@ pnpm run build
 
 This compiles the TypeScript code and copies the icon files to the `dist` directory.
 
-### Running Tests
+### Running Tests (not implemented)
 
 ```bash
 pnpm test
