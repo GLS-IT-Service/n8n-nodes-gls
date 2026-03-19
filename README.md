@@ -148,7 +148,7 @@ This project is licensed under the [MIT License](LICENSE.md).
 
 Contributions are welcome! Please read our [Code of Conduct](CODE_OF_CONDUCT.md) before contributing to the project.
 
-[npm-url]: https://www.npmjs.com/package/n8n-nodes-psm
-[npm-version-image]: https://img.shields.io/npm/v/n8n-nodes-psm.svg
-[license-image]: https://img.shields.io/npm/l/n8n-nodes-psm.svg
+[npm-url]: https://www.npmjs.com/package/n8n-nodes-gls
+[npm-version-image]: https://img.shields.io/npm/v/n8n-nodes-gls.svg
+[license-image]: https://img.shields.io/npm/l/n8n-nodes-gls.svg
 [license-url]: LICENSE.md
