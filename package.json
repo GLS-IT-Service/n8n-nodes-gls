@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-gls",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "N8N Community Nodes Package for GLS API",
   "keywords": [
     "n8n-community-node-package"
